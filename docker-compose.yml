@@ -1,0 +1,14 @@
+services:
+  firebase-emulator:
+    image: andreysenov/firebase-tools
+    container_name: firebase-emulator
+    ports:
+      - "0.0.0.0:4000:4000"
+      - "0.0.0.0:8080:8080"
+      - "0.0.0.0:9099:9099"
+    volumes:
+      - ./firebase.json:/home/node/firebase.json
+      - ./firestore.rules:/home/node/firestore.rules
+    working_dir: /home/node
+    command: firebase emulators:start --project demo-project --import=/home/node/seed-import --export-on-exit=/home/node/seed-import
+    restart: unless-stopped
